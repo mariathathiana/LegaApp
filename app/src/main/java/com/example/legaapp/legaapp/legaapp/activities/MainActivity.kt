@@ -13,11 +13,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.legaapp.R
+import com.example.legaapp.legaapp.legaapp.data.Lega
 
 class MainActivity : AppCompatActivity() { lateinit var recyclerView: RecyclerView
-    lateinit var adapter: HoroscopeAdapter
+    lateinit var adapter: LegaAdapter
 
-    var horoscopeList: List<Horoscope> = Horoscope.getAll()
+    var legaList: List<Lega> = Lega.getAll()
 
     var isGridViewEnabled = false
     lateinit var viewModeMenu: MenuItem
@@ -42,7 +43,7 @@ class MainActivity : AppCompatActivity() { lateinit var recyclerView: RecyclerVi
     override fun onResume() {
         super.onResume()
 
-        adapter.updateItems(horoscopeList)
+        adapter.updateItems(legaList)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -59,12 +60,12 @@ class MainActivity : AppCompatActivity() { lateinit var recyclerView: RecyclerVi
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                horoscopeList = Horoscope.getAll().filter {
+                legaList = Lega.getAll().filter {
                     getString(it.name).search(newText)
                             || getString(it.dates).search(newText)
                 }
 
-                adapter.updateItems(horoscopeList)
+                adapter.updateItems(legaList)
                 return true
             }
         })
@@ -86,10 +87,10 @@ class MainActivity : AppCompatActivity() { lateinit var recyclerView: RecyclerVi
 
     private fun setupViewMode() {
         if (isGridViewEnabled) {
-            adapter = HoroscopeAdapter(horoscopeList, ::onItemClickListener, R.layout.item_horoscope_grid)
+            adapter = LegaAdapter(legaList, ::onItemClickListener, R.layout.item_lega_grid)
             recyclerView.layoutManager = GridLayoutManager(this, 2)
         } else {
-            adapter = HoroscopeAdapter(horoscopeList, ::onItemClickListener, R.layout.item_horoscope_list)
+            adapter = LegaAdapter(legaList, ::onItemClickListener, R.layout.item_lega_list)
             recyclerView.layoutManager = LinearLayoutManager(this)
         }
         recyclerView.adapter = adapter
@@ -104,11 +105,11 @@ class MainActivity : AppCompatActivity() { lateinit var recyclerView: RecyclerVi
     }
 
     fun onItemClickListener(position: Int) {
-        val horoscope = horoscopeList[position]
+        val horoscope = legaList[position]
         goToDetail(horoscope)
     }
 
-    fun goToDetail(horoscope: Horoscope) {
+    fun goToDetail(horoscope: Lega) {
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra("HOROSCOPE_ID", horoscope.id)
         startActivity(intent)

@@ -4,21 +4,21 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class SessionManager (context: Context) {
-    val sharedPreferences: SharedPreferences = context.getSharedPreferences("horoscope_session", Context.MODE_PRIVATE)
+    val sharedPreferences: SharedPreferences = context.getSharedPreferences("lega_session", Context.MODE_PRIVATE)
 
 
-    fun setFavorite(horoscopeId: String) {
+    fun setFavorite(legaId: String) {
         val editor = sharedPreferences.edit()
-        editor.putString("FAVORITE_HOROSCOPE_ID", horoscopeId)
+        editor.putString("FAVORITE_LEGA_ID", legaId)
         editor.apply()
     }
 
     fun getFavorite(): String {
-        return sharedPreferences.getString("FAVORITE_HOROSCOPE_ID", "")!!
+        return sharedPreferences.getString("FAVORITE_LEGA_ID", "")!!
     }
 
-    fun isFavorite(horoscopeId: String): Boolean {
-        return horoscopeId == getFavorite()
+    fun isFavorite(legaId: String): Boolean {
+        return legaId == getFavorite()
     }
 
 }

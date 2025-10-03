@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.legaapp.legaapp.legaapp.data.Lega
 
 class HoroscopeAdapter(
-    var items: List<Horoscope>,
+    var items: List<Lega>,
     val onClickListener: (Int) -> Unit,
     val layout: Int
 ) : RecyclerView.Adapter<HoroscopeViewHolder>() {
@@ -33,7 +34,7 @@ class HoroscopeAdapter(
         return items.size
     }
 
-    fun updateItems(items: List<Horoscope>) {
+    fun updateItems(items: List<Lega>) {
         this.items = items
         notifyDataSetChanged()
     }
@@ -46,7 +47,7 @@ class HoroscopeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val iconImageView: ImageView = view.findViewById(R.id.iconImageView)
     val favoriteImageView: ImageView = view.findViewById(R.id.favoriteImageView)
 
-    fun render(horoscope: Horoscope) {
+    fun render(horoscope: Lega) {
         nameTextView.setText(horoscope.name)
         datesTextView.setText(horoscope.dates)
         iconImageView.setImageResource(horoscope.sign)
