@@ -16,6 +16,8 @@ import com.example.legaapp.legaapp.legaapp.R
 import com.example.legaapp.legaapp.legaapp.data.Lega
 import com.example.legaapp.legaapp.legaapp.adapters.LegaAdapter
 
+import com.example.legaapp.legaapp.legaapp.utils.search
+
 class MainActivity : AppCompatActivity() { lateinit var recyclerView: RecyclerView
     lateinit var adapter: LegaAdapter
 
@@ -106,13 +108,13 @@ class MainActivity : AppCompatActivity() { lateinit var recyclerView: RecyclerVi
     }
 
     fun onItemClickListener(position: Int) {
-        val horoscope = legaList[position]
-        goToDetail(horoscope)
+        val lega = legaList[position]
+        goToDetail(lega)
     }
 
-    fun goToDetail(horoscope: Lega) {
+    fun goToDetail(lega: Lega) {
         val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra("HOROSCOPE_ID", horoscope.id)
+        intent.putExtra("LEGA_ID", lega.id)
         startActivity(intent)
     }
 }
