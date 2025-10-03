@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.legaapp.legaapp.legaapp.data.Lega
+import com.example.legaapp.legaapp.legaapp.utils.SessionManager
 
 class HoroscopeAdapter(
     var items: List<Lega>,

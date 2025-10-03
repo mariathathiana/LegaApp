@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.legaapp"
+    namespace = "com.example.legaapp.legaapp.legaapp"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.legaapp"
+        applicationId = "com.example.legaapp.legaapp.legaapp"
         minSdk = 21
         targetSdk = 36
         versionCode = 1
