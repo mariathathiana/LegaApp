@@ -5,9 +5,12 @@
     <string name="activity_main_title">Leganés</string>
     <string name="lega_name_sannicasio">San Nicasio</string>
     <string name="lega_name_leganescentral">Leganés Central</string>
+    <string name="lega_name_hospitalseveroochoa">Hospital Severo Ochoa</string>
 
 
     <string name="lega_date_sannicasio">March 21 to April 19</string>
+    <string name="lega_date_leganescentral">March 21 to April 19</string>
+    <string name="lega_date_hospitalseveroochoa">March 21 to April 19</string>
 
     <string name="menu_search">Search</string>
     <string name="menu_favorite">Favorite</string>

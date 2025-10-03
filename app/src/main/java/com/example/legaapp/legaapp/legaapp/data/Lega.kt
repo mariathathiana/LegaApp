@@ -12,7 +12,10 @@ class Lega (
     companion object {
         fun getAll() : List<Lega> {
             return listOf(
-                Lega("sannicasio", R.string.lega_name_sannicasio, R.string.lega_date_sannicasio, R.drawable.ic_sannicasio)
+                Lega("sannicasio", R.string.lega_name_sannicasio, R.string.lega_date_sannicasio, R.drawable.ic_sannicasio),
+                Lega("leganescentral", R.string.lega_name_leganescentral, R.string.lega_date_leganescentral, R.drawable.ic_leganescentral),
+                Lega("hospitalseveroochoa", R.string.lega_name_hospitalseveroochoa, R.string.lega_date_hospitalseveroochoa, R.drawable.ic_hospital)
+
             )
         }
 
