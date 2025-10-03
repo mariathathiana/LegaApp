@@ -95,7 +95,7 @@ class DetailActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setTitle(lega.name)
-        supportActionBar?.setSubtitle(horoscope.dates)
+        supportActionBar?.setSubtitle(lega.dates)
         getHoroscopeLuck()
 
     }
