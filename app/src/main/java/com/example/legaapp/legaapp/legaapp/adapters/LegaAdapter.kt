@@ -42,7 +42,7 @@ class LegaAdapter(
     }
 }
 
-class HoroscopeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class LegaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     val nameTextView: TextView = view.findViewById(R.id.nameTextView)
     val datesTextView: TextView = view.findViewById(R.id.datesTextView)
