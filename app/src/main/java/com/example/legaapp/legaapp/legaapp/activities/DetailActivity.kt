@@ -10,7 +10,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.legaapp.R
+import com.example.legaapp.legaapp.legaapp.R
+
 import com.example.legaapp.legaapp.legaapp.data.Lega
 import com.example.legaapp.legaapp.legaapp.utils.SessionManager
 
@@ -18,7 +19,7 @@ class DetailActivity : AppCompatActivity() {lateinit var nameTextView: TextView
     lateinit var datesTextView: TextView
     lateinit var iconImageView: ImageView
 
-    lateinit var Lega : Lega
+    lateinit var lega : Lega
     lateinit var session: SessionManager
     lateinit var favoriteMenu: MenuItem
     var isFavorite = false
@@ -68,7 +69,7 @@ class DetailActivity : AppCompatActivity() {lateinit var nameTextView: TextView
             R.id.action_favorite -> {
                 isFavorite = !isFavorite
                 if (isFavorite) {
-                    session.setFavorite(legaid)
+                    session.setFavorite(lega.id)
                 } else {
                     session.setFavorite("")
                 }
