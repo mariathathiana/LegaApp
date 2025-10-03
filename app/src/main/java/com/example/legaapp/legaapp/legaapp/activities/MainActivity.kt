@@ -18,7 +18,9 @@ import com.example.legaapp.legaapp.legaapp.adapters.LegaAdapter
 
 import com.example.legaapp.legaapp.legaapp.utils.search
 
-class MainActivity : AppCompatActivity() { lateinit var recyclerView: RecyclerView
+class MainActivity : AppCompatActivity() {
+
+    lateinit var recyclerView: RecyclerView
     lateinit var adapter: LegaAdapter
 
     var legaList: List<Lega> = Lega.getAll()
