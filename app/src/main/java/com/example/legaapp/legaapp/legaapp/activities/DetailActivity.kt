@@ -59,7 +59,7 @@ class DetailActivity : AppCompatActivity() {
         nameTextView = findViewById(R.id.nameTextView)
         datesTextView = findViewById(R.id.datesTextView)
         iconImageView = findViewById(R.id.iconImageView)
-        horoscopeLuckTextView = findViewById(R.id.horoscopeLuckTextView)
+        /*horoscopeLuckTextView = findViewById(R.id.horoscopeLuckTextView)
         progressIndicator = findViewById(R.id.progressIndicator)
         periodNavigationView = findViewById(R.id.periodNavigationView)
 
@@ -79,7 +79,7 @@ class DetailActivity : AppCompatActivity() {
                 }
                 else -> false
             }
-        }
+        }*/
 
 
 
@@ -96,7 +96,7 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setTitle(lega.name)
         supportActionBar?.setSubtitle(lega.dates)
-        getHoroscopeLuck()
+        /*getHoroscopeLuck()*/
 
     }
 
@@ -141,7 +141,7 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    /*api de horoscopo*/
+    /*api de horoscopo
     fun getHoroscopeLuck(period: String = "daily") {
         progressIndicator.show()
         horoscopeLuckTextView.text = "Consultando con las estrellas..."
@@ -191,5 +191,5 @@ class DetailActivity : AppCompatActivity() {
         reader.close()
         return response.toString()
     }
-
+*/
 }
