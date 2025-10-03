@@ -8,23 +8,24 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.legaapp.legaapp.legaapp.data.Lega
 import com.example.legaapp.legaapp.legaapp.utils.SessionManager
+import com.example.legaapp.legaapp.legaapp.R
 
-class HoroscopeAdapter(
+class LegaAdapter(
     var items: List<Lega>,
     val onClickListener: (Int) -> Unit,
     val layout: Int
-) : RecyclerView.Adapter<HoroscopeViewHolder>() {
+) : RecyclerView.Adapter<LegaViewHolder>() {
 
     // Cual es la vista para los elementos
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HoroscopeViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LegaViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(layout, parent, false)
-        return HoroscopeViewHolder(view)
+        return LegaViewHolder(view)
     }
 
     // Cuales son los datos para el elemento
-    override fun onBindViewHolder(holder: HoroscopeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LegaViewHolder, position: Int) {
         val item = items[position]
-        holder.render(item)
+        holder.render(lega = item)
         holder.itemView.setOnClickListener {
             onClickListener(position)
         }
@@ -48,13 +49,13 @@ class HoroscopeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val iconImageView: ImageView = view.findViewById(R.id.iconImageView)
     val favoriteImageView: ImageView = view.findViewById(R.id.favoriteImageView)
 
-    fun render(horoscope: Lega) {
-        nameTextView.setText(horoscope.name)
-        datesTextView.setText(horoscope.dates)
-        iconImageView.setImageResource(horoscope.sign)
+    fun render(lega: Lega) {
+        nameTextView.setText(lega.name)
+        datesTextView.setText(lega.dates)
+        iconImageView.setImageResource(lega.sign)
 
         val session = SessionManager(itemView.context)
-        if (session.isFavorite(horoscope.id)) {
+        if (session.isFavorite(lega.id)) {
             favoriteImageView.visibility = View.VISIBLE
         } else {
             favoriteImageView.visibility = View.GONE

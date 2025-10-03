@@ -12,8 +12,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.legaapp.R
+import com.example.legaapp.legaapp.legaapp.R
 import com.example.legaapp.legaapp.legaapp.data.Lega
+import com.example.legaapp.legaapp.legaapp.adapters.LegaAdapter
 
 class MainActivity : AppCompatActivity() { lateinit var recyclerView: RecyclerView
     lateinit var adapter: LegaAdapter
