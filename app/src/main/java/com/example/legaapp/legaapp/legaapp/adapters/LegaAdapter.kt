@@ -45,13 +45,12 @@ class LegaAdapter(
 class LegaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     val nameTextView: TextView = view.findViewById(R.id.nameTextView)
-    val datesTextView: TextView = view.findViewById(R.id.datesTextView)
+
     val iconImageView: ImageView = view.findViewById(R.id.iconImageView)
     val favoriteImageView: ImageView = view.findViewById(R.id.favoriteImageView)
 
     fun render(lega: Lega) {
         nameTextView.setText(lega.name)
-        datesTextView.setText(lega.dates)
         iconImageView.setImageResource(lega.sign)
 
         val session = SessionManager(itemView.context)

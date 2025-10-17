@@ -26,13 +26,6 @@
         android:textAlignment="center"
         android:layout_marginTop="16dp"/>
 
-    <TextView
-        android:id="@+id/datesTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Lega dates"
-        android:textAlignment="center"
-        android:layout_marginTop="8dp"/>
 
 
 </LinearLayout>

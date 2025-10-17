@@ -48,7 +48,6 @@ class DetailActivity : AppCompatActivity() {
 
         // Aquí accedes directo por binding a los views
         binding.nameTextView.text = getString(lega.name)
-        binding.datesTextView.text = getString(lega.dates) // Si tienes un TextView para fechas
 
         binding.iconImageView.setImageResource(lega.sign)
 
