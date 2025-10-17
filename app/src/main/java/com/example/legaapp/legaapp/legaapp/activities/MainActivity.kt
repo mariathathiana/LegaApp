@@ -11,28 +11,29 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.legaapp.legaapp.legaapp.R
-import com.example.legaapp.legaapp.legaapp.data.Lega
 import com.example.legaapp.legaapp.legaapp.adapters.LegaAdapter
-
+import com.example.legaapp.legaapp.legaapp.data.Lega
+import com.example.legaapp.legaapp.legaapp.databinding.ActivityMainBinding
 import com.example.legaapp.legaapp.legaapp.utils.search
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var recyclerView: RecyclerView
-    lateinit var adapter: LegaAdapter
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var adapter: LegaAdapter
 
-    var legaList: List<Lega> = Lega.getAll()
-
-    var isGridViewEnabled = false
-    lateinit var viewModeMenu: MenuItem
+    private var legaList: List<Lega> = Lega.getAll()
+    private var isGridViewEnabled = false
+    private lateinit var viewModeMenu: MenuItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -40,14 +41,11 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.setTitle(R.string.activity_main_title)
 
-        recyclerView = findViewById(R.id.recyclerView)
-
         setupViewMode()
     }
 
     override fun onResume() {
         super.onResume()
-
         adapter.updateItems(legaList)
     }
 
@@ -67,9 +65,8 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextChange(newText: String): Boolean {
                 legaList = Lega.getAll().filter {
                     getString(it.name).search(newText)
-                            || getString(it.dates).search(newText)
-                }
 
+                }
                 adapter.updateItems(legaList)
                 return true
             }
@@ -93,12 +90,12 @@ class MainActivity : AppCompatActivity() {
     private fun setupViewMode() {
         if (isGridViewEnabled) {
             adapter = LegaAdapter(legaList, ::onItemClickListener, R.layout.item_lega_grid)
-            recyclerView.layoutManager = GridLayoutManager(this, 2)
+            binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
         } else {
             adapter = LegaAdapter(legaList, ::onItemClickListener, R.layout.item_lega_list)
-            recyclerView.layoutManager = LinearLayoutManager(this)
+            binding.recyclerView.layoutManager = LinearLayoutManager(this)
         }
-        recyclerView.adapter = adapter
+        binding.recyclerView.adapter = adapter
     }
 
     private fun setViewModeMenu() {
@@ -109,12 +106,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun onItemClickListener(position: Int) {
+    private fun onItemClickListener(position: Int) {
         val lega = legaList[position]
         goToDetail(lega)
     }
 
-    fun goToDetail(lega: Lega) {
+    private fun goToDetail(lega: Lega) {
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra("LEGA_ID", lega.id)
         startActivity(intent)

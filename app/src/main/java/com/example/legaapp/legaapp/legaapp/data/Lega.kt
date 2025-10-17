@@ -19,7 +19,7 @@ class Lega (
             )
         }
 
-        fun getById(id: String) : Lega {
+        fun getById(id: String?) : Lega {
             return getAll().first { it.id == id }
         }
     }

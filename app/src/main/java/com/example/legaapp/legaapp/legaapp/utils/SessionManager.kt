@@ -17,7 +17,7 @@ class SessionManager (context: Context) {
         return sharedPreferences.getString("FAVORITE_LEGA_ID", "")!!
     }
 
-    fun isFavorite(legaId: String): Boolean {
+    fun isFavorite(legaId: String?): Boolean {
         return legaId == getFavorite()
     }
 
