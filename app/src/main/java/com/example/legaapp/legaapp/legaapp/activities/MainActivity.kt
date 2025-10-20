@@ -16,8 +16,15 @@ import com.example.legaapp.legaapp.legaapp.adapters.LegaAdapter
 import com.example.legaapp.legaapp.legaapp.data.Lega
 import com.example.legaapp.legaapp.legaapp.databinding.ActivityMainBinding
 import com.example.legaapp.legaapp.legaapp.utils.search
+import org.osmdroid.config.Configuration
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.Marker
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var map: MapView
+
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: LegaAdapter
@@ -42,11 +49,37 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setTitle(R.string.activity_main_title)
 
         setupViewMode()
+
+        // Cargar configuración de osmdroid
+        Configuration.getInstance().load(applicationContext, androidx.preference.PreferenceManager.getDefaultSharedPreferences(applicationContext))
+
+        map = binding.map
+        map.setMultiTouchControls(true)
+
+// Centrar el mapa en una ubicación (ejemplo Buenos Aires)
+        val startPoint = GeoPoint(-34.6037, -58.3816)
+        map.controller.setZoom(12.0)
+        map.controller.setCenter(startPoint)
+
+// Añadir marcador de ejemplo
+        val marker = Marker(map)
+        marker.position = startPoint
+        marker.title = "Hola desde OpenStreetMap!"
+        map.overlays.add(marker)
+
+
+
     }
 
     override fun onResume() {
         super.onResume()
+        map.onResume()
         adapter.updateItems(legaList)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        map.onPause()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
