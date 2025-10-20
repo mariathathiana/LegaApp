@@ -5,7 +5,9 @@ import com.example.legaapp.legaapp.legaapp.R
 class Lega (
     val id: String,
     val name: Int,
-    val sign: Int
+    val sign: Int,
+    val latitude: Double,
+    val longitude: Double
 
 ) {
     companion object {

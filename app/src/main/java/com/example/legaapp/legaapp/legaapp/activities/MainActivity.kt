@@ -149,4 +149,14 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra("LEGA_ID", lega.id)
         startActivity(intent)
     }
+
+    private fun onItemClickListener(position: Int) {
+        val lega = legaList[position]
+        val intent = Intent(this, MapActivity::class.java)
+        intent.putExtra("LATITUDE", lega.latitude)
+        intent.putExtra("LONGITUDE", lega.longitude)
+        intent.putExtra("TITLE", lega.name)
+        startActivity(intent)
+    }
+
 }
