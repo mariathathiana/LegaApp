@@ -3,7 +3,7 @@ import org.gradle.kotlin.dsl.implementation
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-   
+
 }
 
 android {
@@ -58,6 +58,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("org.osmdroid:osmdroid-android:6.1.14")
     implementation ("androidx.room:room-runtime:2.5.2")
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("androidx.appcompat:appcompat:1.3.1")
 
 
 

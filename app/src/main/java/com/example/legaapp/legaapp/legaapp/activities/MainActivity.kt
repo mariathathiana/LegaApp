@@ -66,8 +66,8 @@ class MainActivity : AppCompatActivity() {
         marker.position = startPoint
         marker.title = "Hola desde OpenStreetMap!"
         map.overlays.add(marker)
-
-
+        val intent = Intent(this, SavedPlacesActivity::class.java)
+        startActivity(intent)
 
     }
 
