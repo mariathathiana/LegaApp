@@ -56,12 +56,12 @@ class MainActivity : AppCompatActivity() {
         map = binding.map
         map.setMultiTouchControls(true)
 
-// Centrar el mapa en una ubicación (ejemplo Buenos Aires)
+        // Centrar el mapa en una ubicación (ejemplo Buenos Aires)
         val startPoint = GeoPoint(-34.6037, -58.3816)
         map.controller.setZoom(12.0)
         map.controller.setCenter(startPoint)
 
-// Añadir marcador de ejemplo
+        // Añadir marcador de ejemplo
         val marker = Marker(map)
         marker.position = startPoint
         marker.title = "Hola desde OpenStreetMap!"
@@ -70,6 +70,8 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+
 
     override fun onResume() {
         super.onResume()
@@ -97,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 legaList = Lega.getAll().filter {
-                    getString(it.name).search(newText)
+                    getString(it.name).contains(newText, ignoreCase = true)
 
                 }
                 adapter.updateItems(legaList)
@@ -139,10 +141,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun onItemClickListener(position: Int) {
-        val lega = legaList[position]
-        goToDetail(lega)
-    }
+
 
     private fun goToDetail(lega: Lega) {
         val intent = Intent(this, DetailActivity::class.java)
@@ -157,6 +156,7 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra("LONGITUDE", lega.longitude)
         intent.putExtra("TITLE", lega.name)
         startActivity(intent)
+        goToDetail(lega)
     }
 
 }

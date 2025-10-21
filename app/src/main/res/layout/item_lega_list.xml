@@ -29,7 +29,7 @@
             android:layout_marginTop="25dp"/>
 
 
-</LinearLayout>
+    </LinearLayout>
     <ImageView
         android:id="@+id/favoriteImageView"
         android:layout_width="wrap_content"

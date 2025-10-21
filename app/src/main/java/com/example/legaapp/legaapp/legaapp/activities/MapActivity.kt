@@ -1,5 +1,13 @@
 package com.example.legaapp.legaapp.legaapp.activities
 
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import org.osmdroid.config.Configuration
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.Marker
+import com.example.legaapp.legaapp.legaapp.R
+
 class MapActivity : AppCompatActivity() {
     private lateinit var map: MapView
 
