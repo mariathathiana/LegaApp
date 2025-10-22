@@ -2,6 +2,7 @@ package com.example.legaapp.legaapp.legaapp.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
@@ -22,6 +23,7 @@ import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
 import android.widget.Button
+import com.example.legaapp.legaapp.legaapp.data.SavedPlaceDAO
 
 
 class MainActivity : AppCompatActivity() {
@@ -76,8 +78,28 @@ class MainActivity : AppCompatActivity() {
         savedPlacesButton.setOnClickListener {
             val intent = Intent(this, SavedPlacesActivity::class.java)
             startActivity(intent)}
+        testSavedPlaceDAO()
 
+    }
 
+    private fun testSavedPlaceDAO() {
+        val dao = SavedPlaceDAO(this)
+
+        val placeToInsert = MapActivity.SavedPlace(
+            id = 0,  // id será autogenerado por la BD
+            name = "Lugar de prueba",
+            latitude = -34.6037,
+            longitude = -58.3816
+        )
+
+        dao.insert(placeToInsert)
+        Log.d("TestDAO", "Lugar insertado: $placeToInsert")
+
+        val savedPlaces = dao.findAll()
+        Log.d("TestDAO", "Lugares guardados (${savedPlaces.size}):")
+        savedPlaces.forEach {
+            Log.d("TestDAO", " - ${it.name} (${it.latitude}, ${it.longitude})")
+        }
     }
 
 

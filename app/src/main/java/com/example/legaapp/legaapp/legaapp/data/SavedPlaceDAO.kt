@@ -26,8 +26,6 @@ class SavedPlaceDAO(val context: Context) {
     }
 
 
-
-
     private fun getContentValues(place: SavedPlace): ContentValues {
         val values = ContentValues()
         values.put("name", place.name)
