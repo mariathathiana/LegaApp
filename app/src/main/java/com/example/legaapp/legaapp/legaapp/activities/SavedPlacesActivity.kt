@@ -2,6 +2,7 @@ package com.example.legaapp.legaapp.legaapp.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.legaapp.data.SavedPlace
@@ -39,15 +40,20 @@ class SavedPlacesActivity : AppCompatActivity() {
 
     private fun loadPlaces() {
         Thread {
-            val mapPlaces = dao.findAll() // Suponiendo que findAll() devuelve List<MapActivity.SavedPlace>
+            val mapPlaces = dao.findAll()
+
+            Log.d("SavedPlacesActivity", "Se encontraron ${mapPlaces.size} lugares guardados")
+
             val savedPlaces = mapPlaces.map { mapPlace ->
                 MapActivity.SavedPlace(mapPlace.name, mapPlace.latitude, mapPlace.longitude)
             }
+
             runOnUiThread {
                 adapter.updatePlaces(savedPlaces)
             }
         }.start()
     }
+
 
 
     private fun onPlaceClicked(place: SavedPlace) {

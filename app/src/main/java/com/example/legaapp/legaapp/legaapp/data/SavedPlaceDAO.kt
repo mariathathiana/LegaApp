@@ -6,11 +6,15 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.util.Log
 import com.example.legaapp.data.SavedPlace
+import com.example.legaapp.legaapp.legaapp.activities.MapActivity
 import com.example.legaapp.legaapp.legaapp.utils.DatabaseManager
 
-class SavedPlaceDAO(val context: Context) {
 
+
+
+class SavedPlaceDAO(val context: Context) {
     private lateinit var db: SQLiteDatabase
 
     private fun open() {
@@ -21,27 +25,37 @@ class SavedPlaceDAO(val context: Context) {
         db.close()
     }
 
+
+
+
     private fun getContentValues(place: SavedPlace): ContentValues {
         val values = ContentValues()
-        values.put(SavedPlace.COLUMN_NAME, place.name)
-        values.put(SavedPlace.COLUMN_LAT, place.latitude)
-        values.put(SavedPlace.COLUMN_LON, place.longitude)
+        values.put("name", place.name)
+        values.put("latitude", place.latitude)
+        values.put("longitude", place.longitude)
         return values
     }
 
     private fun readFromCursor(cursor: Cursor): SavedPlace {
-        val id = cursor.getInt(cursor.getColumnIndexOrThrow(SavedPlace.COLUMN_ID))
-        val name = cursor.getString(cursor.getColumnIndexOrThrow(SavedPlace.COLUMN_NAME))
-        val lat = cursor.getDouble(cursor.getColumnIndexOrThrow(SavedPlace.COLUMN_LAT))
-        val lon = cursor.getDouble(cursor.getColumnIndexOrThrow(SavedPlace.COLUMN_LON))
+        val id = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
+        val name = cursor.getString(cursor.getColumnIndexOrThrow("name"))
+        val lat = cursor.getDouble(cursor.getColumnIndexOrThrow("latitude"))
+        val lon = cursor.getDouble(cursor.getColumnIndexOrThrow("longitude"))
         return SavedPlace(id, name, lat, lon)
     }
 
     fun insert(place: SavedPlace) {
-        val values = getContentValues(place)
         try {
             open()
-            db.insert(SavedPlace.TABLE_NAME, null, values)
+            val values = getContentValues(place)
+            val result = db.insert("saved_places", null, values)
+            if (result == -1L) {
+                Log.e("SavedPlaceDAO", "Error insertando lugar: $place")
+            } else {
+                Log.d("SavedPlaceDAO", "Lugar insertado con id $result")
+            }
+        } catch (e: Exception) {
+            Log.e("SavedPlaceDAO", "Error en insert", e)
         } finally {
             close()
         }
@@ -51,13 +65,23 @@ class SavedPlaceDAO(val context: Context) {
         val places = mutableListOf<SavedPlace>()
         try {
             open()
-            val cursor = db.query(SavedPlace.TABLE_NAME, null, null, null, null, null, null)
+            val cursor = db.query("saved_places", null, null, null, null, null, null)
             while (cursor.moveToNext()) {
                 places.add(readFromCursor(cursor))
             }
+            cursor.close()
+        } catch (e: Exception) {
+            Log.e("SavedPlaceDAO", "Error en findAll", e)
         } finally {
             close()
         }
+        Log.d("SavedPlaceDAO", "findAll retornó ${places.size} lugares")
         return places
     }
+
 }
+
+
+
+
+
