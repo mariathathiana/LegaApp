@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.compose.material3.Button
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,6 +21,8 @@ import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
+import android.widget.Button
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -66,8 +69,14 @@ class MainActivity : AppCompatActivity() {
         marker.position = startPoint
         marker.title = "Hola desde OpenStreetMap!"
         map.overlays.add(marker)
-        val intent = Intent(this, SavedPlacesActivity::class.java)
-        startActivity(intent)
+
+        val savedPlacesButton = findViewById<Button>(R.id.btn_saved_places)
+
+        // Acciones al hacer clic
+        savedPlacesButton.setOnClickListener {
+            val intent = Intent(this, SavedPlacesActivity::class.java)
+            startActivity(intent)}
+
 
     }
 

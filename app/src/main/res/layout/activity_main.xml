@@ -9,6 +9,19 @@
     tools:context=".activities.MainActivity">
 
 
+    <Button
+        android:id="@+id/btn_saved_places"
+        android:layout_width="67dp"
+        android:layout_height="58dp"
+        android:layout_gravity="right"
+        android:backgroundTint="@color/azul"
+        android:drawableLeft="@drawable/ic_saved_places"
+        android:drawablePadding="8dp"
+        android:minWidth="120dp"
+        android:minHeight="48dp"
+
+        android:textAllCaps="false"
+        android:textColor="@android:color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
