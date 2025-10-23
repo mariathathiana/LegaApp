@@ -3,8 +3,11 @@ package com.example.legaapp.legaapp.legaapp.activities
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.legaapp.legaapp.legaapp.R
 import com.example.legaapp.legaapp.legaapp.adapters.SavedPlacesAdapter
 import com.example.legaapp.legaapp.legaapp.data.SavedPlaceDAO
 import com.example.legaapp.legaapp.legaapp.databinding.ActivitySavedPlacesBinding
@@ -29,6 +32,26 @@ class SavedPlacesActivity : AppCompatActivity() {
         dao = SavedPlaceDAO(this)
         setupRecyclerView()
         loadPlaces()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_search, menu)
+
+        val searchItem = menu?.findItem(R.id.action_search)
+        val searchView = searchItem?.actionView as? SearchView
+
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.filter.filter(newText)
+                return true
+            }
+        })
+
+        return true
     }
 
     private fun setupRecyclerView() {
