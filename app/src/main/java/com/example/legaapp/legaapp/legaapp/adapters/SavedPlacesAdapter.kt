@@ -10,7 +10,8 @@ import com.example.legaapp.legaapp.legaapp.databinding.ItemSavePlaceBinding
 
 class SavedPlacesAdapter(
     private var items: List<SavedPlace>,
-    private val onItemClick: (SavedPlace) -> Unit
+    private val onItemClick: (SavedPlace) -> Unit,
+    private val onDeleteClick: (SavedPlace) -> Unit
 ) : RecyclerView.Adapter<SavedPlacesAdapter.ViewHolder>(), Filterable {
 
     private var filteredItems: List<SavedPlace> = items.toList()
@@ -62,6 +63,10 @@ class SavedPlacesAdapter(
             binding.root.setOnClickListener {
                 onItemClick(place)
             }
+            binding.btnDelete.setOnClickListener {
+                onDeleteClick(place)
+            }
+
         }
     }
 }

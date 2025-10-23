@@ -56,13 +56,14 @@ class SavedPlacesActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         binding.rvSavedPlaces.layoutManager = LinearLayoutManager(this)
-        adapter = SavedPlacesAdapter(places) { place ->
-            onPlaceClicked(place)
-        }
-        binding.rvSavedPlaces.adapter = adapter
-    }
+        adapter = SavedPlacesAdapter(
+            places,
+            onItemClick = { place -> onPlaceClicked(place) },
+            onDeleteClick = { place -> onPlaceDeleteClicked(place) }
+        )}
 
-    private fun loadPlaces() {
+
+        private fun loadPlaces() {
         Thread {
             val savedPlaces = dao.findAll()
 
@@ -74,6 +75,15 @@ class SavedPlacesActivity : AppCompatActivity() {
         }.start()
     }
 
+    private fun onPlaceDeleteClicked(place: SavedPlace) {
+        Thread {
+            dao.delete(place.id)
+            val updatedPlaces = dao.findAll()
+            runOnUiThread {
+                adapter.updatePlaces(updatedPlaces)
+            }
+        }.start()
+    }
 
 
 

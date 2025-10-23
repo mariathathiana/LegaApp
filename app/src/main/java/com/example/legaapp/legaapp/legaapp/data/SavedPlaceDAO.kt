@@ -15,6 +15,15 @@ import com.example.legaapp.legaapp.legaapp.utils.DatabaseManager
 class SavedPlaceDAO(val context: Context) {
     private lateinit var db: SQLiteDatabase
 
+    companion object {
+        const val TABLE_NAME = "saved_places"
+        const val COLUMN_ID = "id"
+        const val COLUMN_NAME = "name"
+        const val COLUMN_LATITUDE = "latitude"
+        const val COLUMN_LONGITUDE = "longitude"
+    }
+
+
     private fun open() {
         db = DatabaseManager(context).writableDatabase
     }
@@ -73,6 +82,18 @@ class SavedPlaceDAO(val context: Context) {
         }
         Log.d("SavedPlaceDAO", "findAll retornó ${places.size} lugares")
         return places
+    }
+
+    fun delete(id: Int) {
+        try {
+            open()
+            val deletedRows = db.delete(TABLE_NAME, "$COLUMN_ID = ?", arrayOf(id.toString()))
+            Log.i("SavedPlaceDAO", "$deletedRows rows deleted in table $TABLE_NAME")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            close()
+        }
     }
 
 }
