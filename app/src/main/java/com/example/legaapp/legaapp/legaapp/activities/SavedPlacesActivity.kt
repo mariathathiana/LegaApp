@@ -60,10 +60,13 @@ class SavedPlacesActivity : AppCompatActivity() {
             places,
             onItemClick = { place -> onPlaceClicked(place) },
             onDeleteClick = { place -> onPlaceDeleteClicked(place) }
-        )}
+        )
+        binding.rvSavedPlaces.adapter = adapter
+    }
 
 
-        private fun loadPlaces() {
+
+    private fun loadPlaces() {
         Thread {
             val savedPlaces = dao.findAll()
 

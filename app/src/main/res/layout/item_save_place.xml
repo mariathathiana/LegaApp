@@ -36,13 +36,14 @@
             android:textSize="14sp"
             android:textColor="#888888"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnDelete"
-            style="?attr/materialIconButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="?attr/materialIconButtonStyle"
             app:icon="@drawable/ic_delete"
             app:iconTint="@color/black"/>
+
     </LinearLayout>
 
 </LinearLayout>
