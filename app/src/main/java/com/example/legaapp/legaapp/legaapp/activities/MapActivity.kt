@@ -15,10 +15,10 @@ import org.osmdroid.views.overlay.MapEventsOverlay
 import com.example.legaapp.legaapp.legaapp.R
 import com.example.legaapp.legaapp.legaapp.data.SavedPlace
 import com.example.legaapp.legaapp.legaapp.data.SavedPlaceDAO
+import org.osmdroid.events.MapEventsReceiver
 
 
-
-class MapActivity : AppCompatActivity(), MapEventsOverlay.OnEventListener {
+class MapActivity : AppCompatActivity(), MapEventsReceiver {
 
     private lateinit var map: MapView
     private var selectedPoint: GeoPoint? = null
@@ -56,19 +56,7 @@ class MapActivity : AppCompatActivity(), MapEventsOverlay.OnEventListener {
         map.overlays.add(initialMarker)
 
         // Crear el overlay que captura taps
-        mapEventsOverlay = MapEventsOverlay(object : MapEventsOverlay.OnEventListener {
-            override fun singleTapConfirmedHelper(p: GeoPoint?): Boolean {
-                if (p != null) {
-                    selectedPoint = p
-                    updateSelectionMarker(p)
-                    showNameInputDialog()
-                    return true
-                }
-                return false
-            }
-
-            override fun longPressHelper(p: GeoPoint?): Boolean = false
-        })
+        mapEventsOverlay = MapEventsOverlay(this)
 
         map.overlays.add(mapEventsOverlay)
     }
@@ -156,6 +144,21 @@ class MapActivity : AppCompatActivity(), MapEventsOverlay.OnEventListener {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun singleTapConfirmedHelper(p: GeoPoint?): Boolean {
+        if (p != null) {
+            selectedPoint = p
+            updateSelectionMarker(p)
+            showNameInputDialog()
+            return true
+        }
+        return false
+    }
+
+    override fun longPressHelper(p: GeoPoint?): Boolean {
+        // No hacemos nada con pulsación larga, por ejemplo
+        return false
     }
 }
 
