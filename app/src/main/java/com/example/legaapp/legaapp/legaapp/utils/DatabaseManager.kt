@@ -1,15 +1,13 @@
 package com.example.legaapp.legaapp.legaapp.utils
 
-import com.example.legaapp.legaapp.legaapp.data.SavedPlaceDAO
-
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import com.example.legaapp.data.SavedPlace
+import com.example.legaapp.legaapp.legaapp.data.SavedPlace
 
 class DatabaseManager(context: Context) :
-    SQLiteOpenHelper(context, "places.db", null, 2) {
+    SQLiteOpenHelper(context, "places.db", null, 3) {
 
     override fun onCreate(db: SQLiteDatabase) {
         Log.d("DatabaseManager", "onCreate - Creando tabla saved_places")

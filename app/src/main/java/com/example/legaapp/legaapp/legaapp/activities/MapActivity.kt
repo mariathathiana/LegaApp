@@ -11,34 +11,32 @@ import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
-import com.example.legaapp.legaapp.legaapp.R
-import android.view.MotionEvent
-import org.osmdroid.views.overlay.Overlay
 import org.osmdroid.views.overlay.MapEventsOverlay
+import com.example.legaapp.legaapp.legaapp.R
+import com.example.legaapp.legaapp.legaapp.data.SavedPlace
+import com.example.legaapp.legaapp.legaapp.data.SavedPlaceDAO
 
 
 
-
-class MapActivity : AppCompatActivity() {
+class MapActivity : AppCompatActivity(), MapEventsOverlay.OnEventListener {
 
     private lateinit var map: MapView
-    private lateinit var marker: Marker
     private var selectedPoint: GeoPoint? = null
 
-    private val savedPlaces = mutableListOf<SavedPlace>()
-
-    data class SavedPlace(val name: String, val latitude: Double, val longitude: Double)
+    private lateinit var mapEventsOverlay: MapEventsOverlay
+    private var selectionMarker: Marker? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
 
-        // Botón "Up"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Mapa"
 
-        Configuration.getInstance().load(applicationContext,
-            androidx.preference.PreferenceManager.getDefaultSharedPreferences(applicationContext))
+        Configuration.getInstance().load(
+            applicationContext,
+            androidx.preference.PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        )
 
         map = findViewById(R.id.mapView)
         map.setMultiTouchControls(true)
@@ -51,35 +49,38 @@ class MapActivity : AppCompatActivity() {
         map.controller.setZoom(15.0)
         map.controller.setCenter(point)
 
-        marker = Marker(map)
-        marker.position = point
-        marker.title = title
-        map.overlays.add(marker)
+        // Añadimos el marcador inicial (si lo hay)
+        val initialMarker = Marker(map)
+        initialMarker.position = point
+        initialMarker.title = title
+        map.overlays.add(initialMarker)
 
-
-        // Listener para seleccionar lugar en mapa
-        map.overlays.add(object : Overlay() {
-            override fun onSingleTapConfirmed(e: MotionEvent?, mapView: MapView?): Boolean {
-                if (e != null && mapView != null) {
-                    val projection = mapView.projection
-                    val geoPoint = projection.fromPixels(e.x.toInt(), e.y.toInt())
-                    selectedPoint = geoPoint as GeoPoint?
-
-                    // Mueve el marcador
-                    marker.position = geoPoint
-                    marker.title = "Lugar seleccionado"
-                    map.overlays.clear()
-                    map.overlays.add(marker)
-                    map.invalidate()
-
-                    // Muestra el diálogo para ingresar el nombre
+        // Crear el overlay que captura taps
+        mapEventsOverlay = MapEventsOverlay(object : MapEventsOverlay.OnEventListener {
+            override fun singleTapConfirmedHelper(p: GeoPoint?): Boolean {
+                if (p != null) {
+                    selectedPoint = p
+                    updateSelectionMarker(p)
                     showNameInputDialog()
                     return true
                 }
                 return false
             }
+
+            override fun longPressHelper(p: GeoPoint?): Boolean = false
         })
 
+        map.overlays.add(mapEventsOverlay)
+    }
+
+    private fun updateSelectionMarker(point: GeoPoint) {
+        if (selectionMarker == null) {
+            selectionMarker = Marker(map)
+            map.overlays.add(selectionMarker)
+        }
+        selectionMarker?.position = point
+        selectionMarker?.title = "Lugar seleccionado"
+        map.invalidate()
     }
 
     private fun showNameInputDialog() {
@@ -98,13 +99,45 @@ class MapActivity : AppCompatActivity() {
     }
 
     private fun savePlace(name: String, point: GeoPoint) {
-        savedPlaces.add(SavedPlace(name, point.latitude, point.longitude))
-        Toast.makeText(this, "Lugar guardado: $name", Toast.LENGTH_SHORT).show()
+        val dao = SavedPlaceDAO(this)
+        val place = SavedPlace(0, name, point.latitude, point.longitude)
+
+        Thread {
+            dao.insert(place)
+            runOnUiThread {
+                Toast.makeText(
+                    this,
+                    "Lugar guardado en la base de datos: $name",
+                    Toast.LENGTH_SHORT
+                ).show()
+                loadMarkers()
+            }
+        }.start()
+    }
+
+    private fun loadMarkers() {
+        val dao = SavedPlaceDAO(this)
+        val places = dao.findAll()
+
+        // Eliminamos solo los marcadores (excepto el selectionMarker)
+        val markersToRemove = map.overlays.filterIsInstance<Marker>().filter { it != selectionMarker }
+        map.overlays.removeAll(markersToRemove)
+
+        // Añadimos los marcadores guardados
+        for (place in places) {
+            val marker = Marker(map)
+            marker.position = GeoPoint(place.latitude, place.longitude)
+            marker.title = place.name
+            map.overlays.add(marker)
+        }
+
+        map.invalidate()
     }
 
     override fun onResume() {
         super.onResume()
         map.onResume()
+        loadMarkers()
     }
 
     override fun onPause() {

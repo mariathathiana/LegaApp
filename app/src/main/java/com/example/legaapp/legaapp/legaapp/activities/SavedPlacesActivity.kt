@@ -5,17 +5,18 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.legaapp.data.SavedPlace
 import com.example.legaapp.legaapp.legaapp.adapters.SavedPlacesAdapter
 import com.example.legaapp.legaapp.legaapp.data.SavedPlaceDAO
 import com.example.legaapp.legaapp.legaapp.databinding.ActivitySavedPlacesBinding
+import com.example.legaapp.legaapp.legaapp.data.SavedPlace
 
 class SavedPlacesActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySavedPlacesBinding
     private lateinit var adapter: SavedPlacesAdapter
     private lateinit var dao: SavedPlaceDAO
-    private var places: List<MapActivity.SavedPlace> = listOf()
+    private var places: List<SavedPlace> = listOf()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,19 +41,16 @@ class SavedPlacesActivity : AppCompatActivity() {
 
     private fun loadPlaces() {
         Thread {
-            val mapPlaces = dao.findAll()
+            val savedPlaces = dao.findAll()
 
-            Log.d("SavedPlacesActivity", "Se encontraron ${mapPlaces.size} lugares guardados")
-
-            val savedPlaces = mapPlaces.map { mapPlace ->
-                MapActivity.SavedPlace(mapPlace.name, mapPlace.latitude, mapPlace.longitude)
-            }
+            Log.d("SavedPlacesActivity", "Se encontraron ${savedPlaces.size} lugares guardados")
 
             runOnUiThread {
                 adapter.updatePlaces(savedPlaces)
             }
         }.start()
     }
+
 
 
 

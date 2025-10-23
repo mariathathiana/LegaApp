@@ -1,4 +1,4 @@
-package com.example.legaapp.data
+package com.example.legaapp.legaapp.legaapp.data
 
 data class SavedPlace(
     val id: Int,
@@ -7,7 +7,7 @@ data class SavedPlace(
     val longitude: Double
 ) {
     companion object {
-        const val TABLE_NAME = "SavedPlace"
+        const val TABLE_NAME = "saved_places"
         const val COLUMN_ID = "id"
         const val COLUMN_NAME = "name"
         const val COLUMN_LAT = "latitude"

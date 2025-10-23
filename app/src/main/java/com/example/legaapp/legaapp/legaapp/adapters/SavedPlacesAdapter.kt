@@ -4,19 +4,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.legaapp.data.SavedPlace
 import com.example.legaapp.legaapp.legaapp.R
 import android.widget.TextView
 import com.example.legaapp.legaapp.legaapp.activities.MapActivity
+import com.example.legaapp.legaapp.legaapp.data.SavedPlace
 
 
 class SavedPlacesAdapter(
-    private var items: List<MapActivity.SavedPlace>,
+    private var items: List<SavedPlace>,
     private val onItemClick: (SavedPlace) -> Unit
 ) : RecyclerView.Adapter<SavedPlacesAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(place: MapActivity.SavedPlace) {
+        fun bind(place: SavedPlace) {
             itemView.findViewById<TextView>(R.id.tvPlaceName).text = place.name
             itemView.findViewById<TextView>(R.id.tvCoordinates).text = "Lat: ${place.latitude}, Lon: ${place.longitude}"
             itemView.setOnClickListener {
@@ -37,10 +37,10 @@ class SavedPlacesAdapter(
         holder.bind(items[position])
     }
 
-    fun updatePlaces(newPlaces: List<MapActivity.SavedPlace>) {
+    fun updatePlaces(newPlaces: List<SavedPlace>) {
         this.items = newPlaces
         notifyDataSetChanged()
     }
 }
 
-private fun SavedPlacesAdapter.ViewHolder.onItemClick(p1: MapActivity.SavedPlace) {}
+
