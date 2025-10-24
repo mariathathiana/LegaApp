@@ -2,13 +2,11 @@ package com.example.legaapp.legaapp.legaapp.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.compose.material3.Button
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,13 +15,11 @@ import com.example.legaapp.legaapp.legaapp.R
 import com.example.legaapp.legaapp.legaapp.adapters.LegaAdapter
 import com.example.legaapp.legaapp.legaapp.data.Lega
 import com.example.legaapp.legaapp.legaapp.databinding.ActivityMainBinding
-import com.example.legaapp.legaapp.legaapp.utils.search
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
 import android.widget.Button
-import com.example.legaapp.legaapp.legaapp.data.SavedPlaceDAO
 
 
 class MainActivity : AppCompatActivity() {
