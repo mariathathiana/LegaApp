@@ -17,7 +17,8 @@ class Lega (
                 Lega("leganescentral", R.string.lega_name_leganescentral, R.drawable.ic_leganescentral, 40.328681, -3.771033),
                 Lega("hospitalseveroochoa", R.string.lega_name_hospitalseveroochoa, R.drawable.ic_hospital, 40.321805, -3.768602),
                 Lega("casadelreloj", R.string.lega_name_casadelreloj, R.drawable.ic_casadelreloj, 40.326654, -3.759461),
-                Lega("julianbesteiro", R.string.lega_name_julianbesteiro, R.drawable.ic_julianbesteiro, 40.334691, -3.752399)
+                Lega("julianbesteiro", R.string.lega_name_julianbesteiro, R.drawable.ic_julianbesteiro, 40.334691, -3.752399),
+                Lega("elcarrascal",R.string.lega_name_elcarrascal, R.drawable.ic_elcarrascal, 40.336638, -3.739963)
 
             )
         }
