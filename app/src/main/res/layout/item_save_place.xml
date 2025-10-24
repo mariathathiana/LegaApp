@@ -20,13 +20,18 @@
         android:layout_height="wrap_content"
         android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/tvPlaceName"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nombre del lugar"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:hint="Nombre del lugar">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPlaceName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nombre del lugar"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/tvCoordinates"

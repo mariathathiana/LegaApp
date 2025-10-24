@@ -61,7 +61,8 @@ class SavedPlacesAdapter(
 
     inner class ViewHolder(private val binding: ItemSavePlaceBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(place: SavedPlace) {
-            binding.tvPlaceName.text = place.name
+            binding.etPlaceName.setText(place.name)
+
             binding.tvCoordinates.text = "Lat: ${place.latitude}, Lon: ${place.longitude}"
             binding.root.setOnClickListener {
                 onItemClick(place)
