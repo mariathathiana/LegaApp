@@ -19,7 +19,7 @@
         android:src="@drawable/ic_sannicasio"
         android:background="#CCCCCC"/> <!-- fondo temporal para pruebas -->
 
-    <!-- Nombre del Lega -->
+    <!--Gracias a ChatGPT hice esto -->
     <TextView
         android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
