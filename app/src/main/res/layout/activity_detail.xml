@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:gravity="center_horizontal"
-    android:background="@android:color/white"> <!-- fondo temporal para pruebas -->
+    android:background="@android:color/white">
 
     <!-- Ícono del Lega -->
     <ImageView
@@ -17,7 +17,7 @@
         android:layout_gravity="center_horizontal"
         android:contentDescription="Ícono del Lega"
         android:src="@drawable/ic_sannicasio"
-        android:background="@android:color/white"/> <!-- fondo temporal para pruebas -->
+        android:background="@android:color/white"/>
 
     <!--Gracias a ChatGPT hice esto -->
     <TextView
