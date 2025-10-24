@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:gravity="center_horizontal"
-    android:background="#F0F0F0"> <!-- fondo temporal para pruebas -->
+    android:background="@android:color/white"> <!-- fondo temporal para pruebas -->
 
     <!-- Ícono del Lega -->
     <ImageView
@@ -17,7 +17,7 @@
         android:layout_gravity="center_horizontal"
         android:contentDescription="Ícono del Lega"
         android:src="@drawable/ic_sannicasio"
-        android:background="#CCCCCC"/> <!-- fondo temporal para pruebas -->
+        android:background="@android:color/white"/> <!-- fondo temporal para pruebas -->
 
     <!--Gracias a ChatGPT hice esto -->
     <TextView
@@ -29,7 +29,7 @@
         android:textStyle="bold"
         android:textAlignment="center"
         android:layout_marginTop="16dp"
-        android:background="#EEEEEE"
+        android:background="@android:color/white"
         android:padding="8dp"/>
 
     <com.google.android.material.button.MaterialButton
