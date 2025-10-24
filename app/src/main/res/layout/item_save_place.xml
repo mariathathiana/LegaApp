@@ -37,6 +37,13 @@
             android:textColor="#888888"/>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/editButton"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_edit"/>
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

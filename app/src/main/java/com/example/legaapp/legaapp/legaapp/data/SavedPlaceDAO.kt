@@ -96,6 +96,23 @@ class SavedPlaceDAO(val context: Context) {
         }
     }
 
+    fun update(savedplace: SavedPlace) {
+        // Create a new map of values, where column names are the keys
+        val values = getContentValues(savedplace)
+
+        try {
+            open()
+
+            // Insert the new row, returning the primary key value of the new row
+            val updatedRows = db.update(SavedPlace.TABLE_NAME, values, "${SavedPlace.COLUMN_ID} = ${savedplace.id}", null)
+            Log.i("DATABASE", "$updatedRows rows updated in table ${SavedPlace.TABLE_NAME}")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            close()
+        }
+    }
+
 }
 
 

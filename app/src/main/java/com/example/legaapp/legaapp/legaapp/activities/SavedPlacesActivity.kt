@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.legaapp.legaapp.legaapp.R
@@ -59,7 +60,8 @@ class SavedPlacesActivity : AppCompatActivity() {
         adapter = SavedPlacesAdapter(
             places,
             onItemClick = { place -> onPlaceClicked(place) },
-            onDeleteClick = { place -> onPlaceDeleteClicked(place) }
+            onDeleteClick = { place -> showDeleteConfirmationDialog(place) },
+            onEditListener = { place -> showEditDialog(place) }
         )
         binding.rvSavedPlaces.adapter = adapter
     }
@@ -84,9 +86,25 @@ class SavedPlacesActivity : AppCompatActivity() {
             val updatedPlaces = dao.findAll()
             runOnUiThread {
                 adapter.updatePlaces(updatedPlaces)
+                runOnUiThread {
+                    adapter.updatePlaces(updatedPlaces)
+                    Toast.makeText(this, "Lugar eliminado", Toast.LENGTH_SHORT).show()
+                }
+
             }
         }.start()
     }
+
+    private fun onPlaceEditClicked(updatedPlace: SavedPlace) {
+        Thread {
+            dao.update(updatedPlace)
+            val updatedPlaces = dao.findAll()
+            runOnUiThread {
+                adapter.updatePlaces(updatedPlaces)
+            }
+        }.start()
+    }
+
 
 
 
@@ -102,4 +120,50 @@ class SavedPlacesActivity : AppCompatActivity() {
         finish()
         return true
     }
+
+    private fun showEditDialog(place: SavedPlace) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_edit_place, null)
+        val etName = dialogView.findViewById<android.widget.EditText>(R.id.etName)
+        val etLatitude = dialogView.findViewById<android.widget.EditText>(R.id.etLatitude)
+        val etLongitude = dialogView.findViewById<android.widget.EditText>(R.id.etLongitude)
+
+        // Mostrar los valores actuales
+        etName.setText(place.name)
+        etLatitude.setText(place.latitude.toString())
+        etLongitude.setText(place.longitude.toString())
+
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Editar lugar")
+            .setView(dialogView)
+            .setPositiveButton("Guardar") { _, _ ->
+                // Crear un nuevo objeto con los valores actualizados
+                val updatedPlace = place.copy(
+                    name = etName.text.toString(),
+                    latitude = etLatitude.text.toString().toDoubleOrNull() ?: place.latitude,
+                    longitude = etLongitude.text.toString().toDoubleOrNull() ?: place.longitude
+                )
+
+                // Guardar los cambios en la BD
+                onPlaceEditClicked(updatedPlace)
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    private fun showDeleteConfirmationDialog(place: SavedPlace) {
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Eliminar lugar")
+            .setMessage("¿Seguro que deseas eliminar \"${place.name}\"?")
+            .setPositiveButton("Eliminar") { _, _ ->
+                // Si el usuario confirma, eliminamos el lugar
+                onPlaceDeleteClicked(place)
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+
+
+
+
 }

@@ -7,11 +7,14 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.example.legaapp.legaapp.legaapp.data.SavedPlace
 import com.example.legaapp.legaapp.legaapp.databinding.ItemSavePlaceBinding
+import org.osmdroid.events.MapListener
 
 class SavedPlacesAdapter(
     private var items: List<SavedPlace>,
     private val onItemClick: (SavedPlace) -> Unit,
-    private val onDeleteClick: (SavedPlace) -> Unit
+    private val onDeleteClick: (SavedPlace) -> Unit,
+    private val onEditListener: (SavedPlace) -> Unit
+
 ) : RecyclerView.Adapter<SavedPlacesAdapter.ViewHolder>(), Filterable {
 
     private var filteredItems: List<SavedPlace> = items.toList()
@@ -62,6 +65,9 @@ class SavedPlacesAdapter(
             binding.tvCoordinates.text = "Lat: ${place.latitude}, Lon: ${place.longitude}"
             binding.root.setOnClickListener {
                 onItemClick(place)
+            }
+            binding.editButton.setOnClickListener {
+                onEditListener(place)
             }
             binding.btnDelete.setOnClickListener {
                 onDeleteClick(place)
