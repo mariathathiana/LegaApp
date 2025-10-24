@@ -127,7 +127,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
     }
-
+    //Obviamente en esto me ayudó ChatGPT
     private fun openMap() {
         lega?.let { l ->
             val intent = Intent(this, MapActivity::class.java)
