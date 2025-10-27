@@ -19,10 +19,11 @@
 
         <ImageView
             android:id="@+id/favoriteImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:src="@drawable/ic_favorite_selected"
-            android:layout_gravity="end|bottom"/>
+            android:layout_gravity="end|bottom"
+            app:tint="#E91E63" />
 
     </FrameLayout>
 
